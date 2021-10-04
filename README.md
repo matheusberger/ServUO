@@ -9,7 +9,7 @@
 [![GitHub](https://img.shields.io/github/license/servuo/servuo.svg?color=a)](https://github.com/ServUO/ServUO/blob/master/LICENSE)
 
 
-[ServUO] is a community driven Ultima Online Server Emulator written in C#.
+[OneShotUltima] is a CatiVaz one shot sim using Ultima Online Server Emulator written in C#.
 
 
 #### Requirements

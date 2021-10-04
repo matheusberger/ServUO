@@ -677,6 +677,7 @@ namespace Server.Items
             FruitType = type;
             Vintage = vintage;
             Year = year;
+			FillFactor = 4;
         }
 
         public override void GetProperties(ObjectPropertyList list)

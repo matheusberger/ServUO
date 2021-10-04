@@ -758,8 +758,10 @@ namespace Server.Items
         private CraftResource _Resource;
         private Mobile _Crafter;
         private ItemQuality _Quality;
+		//add fill factor to all beverages
+		private int m_FillFactor;
 
-        [CommandProperty(AccessLevel.GameMaster)]
+		[CommandProperty(AccessLevel.GameMaster)]
         public CraftResource Resource { get { return _Resource; } set { _Resource = value; Hue = CraftResources.GetHue(_Resource); InvalidateProperties(); } }
 
         [CommandProperty(AccessLevel.GameMaster)]
@@ -768,7 +770,14 @@ namespace Server.Items
         [CommandProperty(AccessLevel.GameMaster)]
         public ItemQuality Quality { get { return _Quality; } set { _Quality = value; InvalidateProperties(); } }
 
-        public bool PlayerConstructed => _Crafter != null;
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int FillFactor
+		{
+			get { return m_FillFactor; }
+			set { m_FillFactor = value; }
+		}
+
+		public bool PlayerConstructed => _Crafter != null;
 
         public override int LabelNumber
         {

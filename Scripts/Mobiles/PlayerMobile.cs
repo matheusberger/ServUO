@@ -41,6 +41,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Server.Engines.ArenaSystem;
 using RankDefinition = Server.Guilds.RankDefinition;
+using OSU;
 #endregion
 
 namespace Server.Mobiles
@@ -236,6 +237,9 @@ namespace Server.Mobiles
         private DateTime m_LastOnline;
         private RankDefinition m_GuildRank;
         private bool m_NextEnhanceSuccess;
+
+		private OSUCharacter osu_char_info;
+
 
         [CommandProperty(AccessLevel.GameMaster)]
         public bool NextEnhanceSuccess { get { return m_NextEnhanceSuccess; } set { m_NextEnhanceSuccess = value; } }

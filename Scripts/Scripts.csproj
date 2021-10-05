@@ -29,6 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Custom\" />
+    <Folder Include="Custom\OSU\Gumps\" />
   </ItemGroup>
 </Project>

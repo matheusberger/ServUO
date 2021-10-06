@@ -76,9 +76,9 @@ namespace Server.Gumps
 			switch ( info.ButtonID )
 			{
 				case 999: //setinha de ir pro prox
-					m.SendGump(new CharStatsGump(m));
-					m.SendMessage("BOA ESCOLHA!");
 					CharacterCreationSystem.temp_char.civilization = all_civilizations[civ_choice];
+					m.SendGump(new CharStatsGump(m, new CharStats(50), new AvatarDesc(m.Female, 0)));
+					m.SendMessage("BOA ESCOLHA!");
 					break;
 				default:
 					civ_choice = info.ButtonID;

@@ -85,7 +85,7 @@ namespace Server.Gumps
 			}
 
 			if (m.HasGump(typeof(CharStatsGump)))
-				m.SendGump(new CharStatsGump(m));
+				//m.SendGump(new CharStatsGump(m));
 
 			if (info.ButtonID != 0)
 			{

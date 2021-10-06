@@ -10,62 +10,91 @@ namespace Server.Gumps
 {
 	public class CharStatsGump : Gump
 	{
+		private int remaining_points = 50;
+
+		private int bonus_str = 0;
+		private int bonus_dex = 0;
+		private int bonus_int = 0;
+
+		private int bonus_hitpoints = 0;
+		private int bonus_stamina = 0;
+		private int bonus_mana = 0;
 
 		public CharStatsGump(PlayerMobile m)
 			: base(0, 0)
 		{
 			m.CloseGump(typeof(CharStatsGump));
+			
 			this.Closable = false;
 			this.Disposable = false;
 			this.Dragable = true;
 			this.Resizable = false;
 
-			this.AddPage(0);
-			this.AddBackground(54, 31, 400, 383, 9270);
-			this.AddBackground(71, 192, 364, 202, 3500);
-			this.AddImage(4, 10, 10440);
-			this.AddImage(423, 10, 10441);
-			this.AddImage(183, 50, 29);
-			//this.AddImage(215, 80, 9000);
-			this.AddLabel(194, 48, 2010, @"Stat Points Left: ");
-			this.AddLabel(116, 82, 1149, @"Strength");
-			this.AddLabel(116, 117, 1149, @"Dexterity");
-			this.AddLabel(116, 152, 1149, @"Intelligence");
-			this.AddLabel(324, 82, 1149, @"Hit Points");
-			this.AddLabel(337, 117, 1149, @"Stamina");
-			this.AddLabel(356, 152, 1149, @"Mana");
+			AddPage(0);
+			AddImage(12, 12, 40322);
+			AddLabel(328, 45, 1153, @"Criacao de Personagem");
+			AddHtml(109, 128, 608, 126, @"<p>Distribui teus pontos, escolhe um avatar, e escreve a tua descrição</p>", (bool)false, (bool)true);
+			AddLabel(113, 99, 1153, @"Caracteristicas Parte 2");
+			AddButton(319, 404, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			AddButton(319, 444, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			AddButton(319, 484, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			AddButton(319, 524, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			AddButton(319, 564, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			AddButton(319, 604, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			
+			AddLabel(125, 405, 1153, @"Forca");
+			AddLabel(250, 405, 1153, @"10");
 
-			this.AddButton(404, 46, 1150, 1152, 0, GumpButtonType.Reply, 0);
+			AddLabel(125, 445, 1153, @"Destreza");
+			AddLabel(250, 445, 1153, @"10");
 
-			this.AddButton(96, 85, 5600, 5604, 1, GumpButtonType.Reply, 0);
-			this.AddButton(96, 120, 5600, 5604, 2, GumpButtonType.Reply, 0);
-			this.AddButton(96, 155, 5600, 5604, 3, GumpButtonType.Reply, 0);
-			this.AddButton(415, 85, 5600, 5604, 4, GumpButtonType.Reply, 0);
-			this.AddButton(415, 120, 5600, 5604, 5, GumpButtonType.Reply, 0);
-			this.AddButton(415, 155, 5600, 5604, 6, GumpButtonType.Reply, 0);
-			this.AddButton(75, 85, 9764, 9765, 7, GumpButtonType.Reply, 0);
-			this.AddButton(75, 120, 9764, 9765, 8, GumpButtonType.Reply, 0);
-			this.AddButton(75, 155, 9764, 9765, 9, GumpButtonType.Reply, 0);
-			this.AddButton(395, 85, 9764, 9765, 10, GumpButtonType.Reply, 0);
-			this.AddButton(395, 120, 9764, 9765, 11, GumpButtonType.Reply, 0);
-			this.AddButton(395, 155, 9764, 9765, 12, GumpButtonType.Reply, 0);
-			this.AddHtml(99, 219, 307, 147, @"You may now spend your initial Stat Bonus Points as you wish. While in the creation chamber, " +
-						 " you can reopen this gump by using the .StatPoints command.", (bool)true, (bool)true);
+			AddLabel(125, 485, 1153, @"Inteligencia");
+			AddLabel(250, 485, 1153, @"10");
 
+			AddLabel(125, 525, 1153, @"Hit Points");
+			AddLabel(250, 525, 1153, @"10");
+
+			AddLabel(125, 565, 1153, @"Estamina");
+			AddLabel(250, 565, 1153, @"10");
+
+			AddLabel(125, 605, 1153, @"Mana");
+			AddLabel(250, 605, 1153, @"10");
+
+			AddLabel(120, 341, 1153, @"Você ainda tem " + remaining_points + " pontos para distribuir");
+			AddButton(280, 404, 9909, 9910, 0, GumpButtonType.Reply, 0);
+			AddButton(280, 444, 9909, 9910, 0, GumpButtonType.Reply, 0);
+			AddButton(280, 484, 9909, 9910, 0, GumpButtonType.Reply, 0);
+			AddButton(280, 524, 9909, 9910, 0, GumpButtonType.Reply, 0);
+			AddButton(280, 564, 9909, 9910, 0, GumpButtonType.Reply, 0);
+			AddButton(280, 604, 9909, 9910, 0, GumpButtonType.Reply, 0);
+
+
+			//Avatar stuff
+			AddLabel(450, 340, 1153, @"Avatar");
+
+			AddButton(450, 387, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			AddLabel(474, 385, 1153, @"Jovem");
+
+			AddButton(450, 417, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			AddLabel(474, 415, 1153, @"Maduro(a)");
+
+			AddButton(450, 447, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			AddLabel(474, 445, 1153, @"Velho(a)");
+
+			//Avatar image with side buttons
+			AddButton(983, 425, 9903, 9904, 0, GumpButtonType.Reply, 0);
+			AddImage(724, 336, 40400);
+			AddButton(691, 425, 9909, 9910, 0, GumpButtonType.Reply, 0);
+			
+			
+			//Character Description
+			AddLabel(450, 559, 1153, @"Descricao fisica");
+			AddTextEntry(450, 594, 561, 141, 1153, 0, @"Escreva aqui a descrição física do seu personagem");
+
+			//Forward Button
+			AddButton(1055, 761, 4005, 4007, 0, GumpButtonType.Reply, 0);
 		}
-		public static int GetValue(int feat)
-		{
-			if (feat == 1)
-				return 1;
 
-			if (feat == 2)
-				return 3;
-
-			if (feat == 3)
-				return 6;
-
-			return 0;
-		}
 
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{
@@ -81,15 +110,6 @@ namespace Server.Gumps
 					{
 						break;
 					}
-
-			}
-
-			if (m.HasGump(typeof(HairSkinGump)))
-				m.SendGump(new HairSkinGump(m));
-
-			if (info.ButtonID != 0)
-			{
-				m.SendGump(new CivilizationGump(m));
 			}
 		}
 	}

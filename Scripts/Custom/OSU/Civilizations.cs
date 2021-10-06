@@ -14,16 +14,16 @@ namespace OSU
 
 		public struct CivState
 		{
-			public CivState(bool destroyed, bool atWar, bool fallen)
+			public CivState(bool destroyed, bool atWar, bool atAliance)
 			{
 				this.destroyed = destroyed;
 				this.atWar = atWar;
-				this.fallen = fallen;
+				this.atAliance = atAliance;
 			}
 
 			public readonly bool destroyed;
 			public readonly bool atWar;
-			public readonly bool fallen;
+			public readonly bool atAliance;
 		}
 
 		public class Civilization
@@ -116,8 +116,15 @@ namespace OSU
 
 		public struct Civilizations
 		{
+			//Parameter order is:
+			// name, title, max height, min height, max weight, min weight
+			// base str, base dex, base int, base hitpoints, base stamina, base mana,
+			// description
+			// impossible skills to learn
+			// languages this civilization speaks
+			// civilization state
 			public static Civilization Aludia = new Civilization("Aludia", "Os Aludis", 180, 160, 90, 50,
-																10, 10, 10, 100, 100, 100,
+																19, 12, 11, 100, 100, 100,
 																CivilizationDescriptions.AludiaDesc,
 																CivilizationImpossibleSkills.AludiaImpossible,
 																CivilizationLanguages.AludiaLangs,
@@ -125,11 +132,11 @@ namespace OSU
 
 
 			public static Civilization Durah = new Civilization("Durah", "Os Durah", 190, 180, 110, 80,
-													10, 15, 10, 150, 100, 100,
-													CivilizationDescriptions.DurahDesc,
-													CivilizationImpossibleSkills.DurahImpossible,
-													CivilizationLanguages.DurahLangs,
-													new CivState(false, false, false));
+																10, 19, 12, 150, 100, 100,
+																CivilizationDescriptions.DurahDesc,
+																CivilizationImpossibleSkills.DurahImpossible,
+																CivilizationLanguages.DurahLangs,
+																new CivState(false, false, false));
 
 
 

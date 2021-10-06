@@ -28,11 +28,12 @@ namespace OSU
 
 		public class Civilization
 		{
-			public Civilization(string name, int max_height, int min_height, int max_weight, int min_weight,
+			public Civilization(string name, string title, int max_height, int min_height, int max_weight, int min_weight,
 								int base_str, int base_dex, int base_int, int base_hitpoints, int base_stamina, int base_mana,
 								string description, int[] impossible_skills, Languages[] languages, CivState state)
 			{
 				this.name = name;
+				this.title = title;
 
 				this.max_height = max_height;
 				this.min_height = min_height;
@@ -57,6 +58,7 @@ namespace OSU
 			}
 
 			public readonly string name;
+			public readonly string title;
 
 			public readonly int max_height;
 			public readonly int min_height;
@@ -114,7 +116,7 @@ namespace OSU
 
 		public struct Civilizations
 		{
-			public static Civilization Aludia = new Civilization("Aludia", 180, 160, 90, 50,
+			public static Civilization Aludia = new Civilization("Aludia", "Os Aludis", 180, 160, 90, 50,
 																10, 10, 10, 100, 100, 100,
 																CivilizationDescriptions.AludiaDesc,
 																CivilizationImpossibleSkills.AludiaImpossible,
@@ -122,7 +124,7 @@ namespace OSU
 																new CivState(false, false, true));
 
 
-			public static Civilization Durah = new Civilization("Durah", 190, 180, 110, 80,
+			public static Civilization Durah = new Civilization("Durah", "Os Durah", 190, 180, 110, 80,
 													10, 15, 10, 150, 100, 100,
 													CivilizationDescriptions.DurahDesc,
 													CivilizationImpossibleSkills.DurahImpossible,
@@ -130,11 +132,12 @@ namespace OSU
 													new CivState(false, false, false));
 
 
-			//ADD MORE CIVILIZATIONS HERE
+
 			//public static Civilization Civ3;
 			//public static Civilization Civ4;
 			//public static Civilization Civ5;
 			//public static Civilization UnkownCiv;
+			//ADD MORE CIVILIZATIONS HERE
 		}
 	}
 }

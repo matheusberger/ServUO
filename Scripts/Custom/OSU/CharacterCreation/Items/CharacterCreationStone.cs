@@ -29,7 +29,7 @@ namespace Server.Items
 			PlayerMobile from = m as PlayerMobile;
 			CharacterCreationSystem.WipeAllTraits(from);
 
-			from.SendGump(new CivilizationGump(from));
+			from.SendGump(new CivilizationGump(from, 0));
 		}
 
 

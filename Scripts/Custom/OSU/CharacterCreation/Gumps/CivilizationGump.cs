@@ -4,9 +4,7 @@
 // was based off of, and Shadow wolf for his Template Idea.
 //////////////////////////////////////////////////////////////////////
 
-using System;
-using Server;
-using Server.Items;
+using System.Collections.Generic;
 using Server.Network;
 using Server.Mobiles;
 using Server.Gumps;
@@ -19,32 +17,53 @@ namespace Server.Gumps
 {
 	public class CivilizationGump : Gump
 	{
-		private int civ_choice = -1;
-		
-		public CivilizationGump( PlayerMobile m )
-			: base( 0, 0 )
+		//default to Aludia since it is the first one
+		private int civ_choice = 0;
+		private List<Civilization> all_civilizations = new List<Civilization>();
+
+		private void CivilizationListSetup()
 		{
-			m.CloseGump( typeof(CivilizationGump) );
+			all_civilizations.Add(Civilizations.Aludia);
+			all_civilizations.Add(Civilizations.Durah);
+			//daqui pra baixo vão as novas
+			all_civilizations.Add(Civilizations.Aludia);
+			all_civilizations.Add(Civilizations.Durah);
+			all_civilizations.Add(Civilizations.Aludia);
+		}
+
+		public CivilizationGump(PlayerMobile m, int target_civ_int = 0) : base(0, 0)
+		{
+			m.CloseGump(typeof(CivilizationGump));
+
 			this.Closable = false;
 			this.Disposable = true;
 			this.Dragable = true;
 			this.Resizable = false;
 
+			this.CivilizationListSetup();
+			civ_choice = target_civ_int;
+
 			AddPage(0);
-			AddImage(0, -3, 40317);
-			AddHtml(310, 371, 269, 196, Civilizations.Aludia.description, (bool)false, (bool)true);
-			AddHtml(602, 372, 268, 193, Civilizations.Durah.description, (bool)false, (bool)true);
-			AddHtml(69, 289, 178, 310, @"<p>Escolha a sua raça seu nóia</p>", (bool)false, (bool)true);
+			AddImage(12, 12, 40322);
+			AddLabel(328, 45, 1153, @"Criacao de Personagem");
+			AddLabel(113, 99, 1153, @"Povos");
+			AddHtml(109, 128, 608, 126, @"<p>TUTORIAL PRA FAZER AS DOIDEIRA DOIDA</p> <a href=https://en.wikipedia.org/wiki/Ultima_Online> CLICA AQUII PRA WIKI</a> ", (bool)false, (bool)true);
 
-			//Next page
-			AddButton(840, 574, 4005, 4007, 0, GumpButtonType.Reply, 0);
-			
-			AddGroup(0);
-			AddLabel(345, 340, 1153, @"Aludia");
-			AddRadio(324, 343, 40308, 40310, true, 0);
-			AddLabel(647, 340, 1153, @"Durah");
-			AddRadio(624, 342, 40308, 40310, false, 1);
+			int button_x_pos = 111, label_x_pos = 140;
+			int y_position = 331, y_offset = 40;
 
+			for (int civ_index = 0; civ_index < all_civilizations.Count; civ_index++)
+			{
+				AddButton(button_x_pos, y_position, (civ_index == civ_choice ? 9904 : 9903), (civ_index == civ_choice ? 9903 : 9904), civ_index, GumpButtonType.Reply, 0);
+				AddLabel(label_x_pos, y_position, 1153, all_civilizations[civ_index].name);
+
+				y_position += y_offset;
+			}
+
+			AddLabel(446, 333, 1153, all_civilizations[civ_choice].title);
+			AddHtml(446, 390, 573, 346, all_civilizations[civ_choice].description, (bool)false, (bool)true);
+
+			AddButton(1055, 761, 4005, 4007, 999, GumpButtonType.Reply, 0);
 		}
 		
 		public override void OnResponse(NetState sender, RelayInfo info)
@@ -54,32 +73,17 @@ namespace Server.Gumps
             if( m == null )
                 return;
 
-			if (info.Switches.Length > 0)
-			{
-				civ_choice = info.Switches[0];
-			}
-			else
-			{
-				civ_choice = -1;
-			}
-
 			switch ( info.ButtonID )
 			{
-				case 0:
-					if (civ_choice != -1)
-					{
-						CharacterCreationSystem.SetCivilization(civ_choice);
-						m.SendGump(new CharStatsGump(m));
-						m.SendMessage("Selecionou a civilização: " + civ_choice);
-					}
-					else
-					{
-						m.SendGump(new CivilizationGump(m));
-						m.SendMessage("Não selecionou nenhuma civilização");
-					}
+				case 999: //setinha de ir pro prox
+					m.SendGump(new CharStatsGump(m));
+					m.SendMessage("BOA ESCOLHA!");
+					CharacterCreationSystem.temp_char.civilization = all_civilizations[civ_choice];
 					break;
 				default:
-					m.SendMessage("APERTOU O BOTAO: " + info.ButtonID);
+					civ_choice = info.ButtonID;
+					m.SendGump(new CivilizationGump(m, civ_choice));
+					m.SendMessage("Selecionou a civilização: " + all_civilizations[civ_choice].name);
 					break;
 			}
 		}

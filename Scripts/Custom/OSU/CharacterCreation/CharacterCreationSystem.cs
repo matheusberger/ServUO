@@ -20,21 +20,5 @@ namespace OSU
 		{
 			temp_char = new OSUCharacter();
 		}
-
-		public static void SetCivilization(int civ)
-		{
-			switch(civ)
-			{
-				case 0:
-					temp_char.civilization = Civilizations.Civilizations.Aludia;
-					break;
-				case 1:
-					temp_char.civilization = Civilizations.Civilizations.Durah;
-					break;
-				default:
-					//unkown civ error
-					break;
-			}
-		}
 	}
 }

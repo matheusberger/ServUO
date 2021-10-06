@@ -7,10 +7,16 @@ namespace OSU
 {
 	public class OSUCharacter
 	{
+		public enum Age
+		{
+			Young,
+			Mature,
+			Old
+		}
+
 		private PlayerMobile base_char;
 
 		//leveling point system info
-
 		//how many points the player currently has in each category
 		private int current_combat_points = 50;
 		private int current_profession_points;
@@ -56,6 +62,8 @@ namespace OSU
 		//rp system
 		public Civilization civilization;
 		private int disguise;
+
+		public Age age;
 
 		private Languages[] known_languages;
 		private OSUSkill[] skill_list;

@@ -116,130 +116,129 @@ namespace Server.Mobiles
         Red,
         Black
     }
-    #endregion
+	#endregion
 
-    public partial class PlayerMobile : Mobile, IHonorTarget
-    {
-        public static List<PlayerMobile> Instances { get; private set; }
+	public partial class PlayerMobile : Mobile, IHonorTarget
+	{
+		public static List<PlayerMobile> Instances { get; private set; }
 
-        static PlayerMobile()
-        {
-            Instances = new List<PlayerMobile>(0x1000);
-        }
+		static PlayerMobile()
+		{
+			Instances = new List<PlayerMobile>(0x1000);
+		}
 
-        #region Mount Blocking
-        public void SetMountBlock(BlockMountType type, TimeSpan duration, bool dismount)
-        {
-            if (dismount)
-            {
-                BaseMount.Dismount(this, this, type, duration, false);
-            }
-            else
-            {
-                BaseMount.SetMountPrevention(this, type, duration);
-            }
-        }
-        #endregion
+		#region Mount Blocking
+		public void SetMountBlock(BlockMountType type, TimeSpan duration, bool dismount)
+		{
+			if (dismount)
+			{
+				BaseMount.Dismount(this, this, type, duration, false);
+			}
+			else
+			{
+				BaseMount.SetMountPrevention(this, type, duration);
+			}
+		}
+		#endregion
 
-        #region Stygian Abyss
-        public override void ToggleFlying()
-        {
-            if (Race != Race.Gargoyle)
-                return;
+		#region Stygian Abyss
+		public override void ToggleFlying()
+		{
+			if (Race != Race.Gargoyle)
+				return;
 
-            if (Frozen)
-            {
-                SendLocalizedMessage(1060170); // You cannot use this ability while frozen.
-                return;
-            }
+			if (Frozen)
+			{
+				SendLocalizedMessage(1060170); // You cannot use this ability while frozen.
+				return;
+			}
 
-            if (!Flying)
-            {
-                if (BeginAction(typeof(FlySpell)))
-                {
-                    if (Spell is Spell)
-                        ((Spell)Spell).Disturb(DisturbType.Unspecified, false, false);
+			if (!Flying)
+			{
+				if (BeginAction(typeof(FlySpell)))
+				{
+					if (Spell is Spell)
+						((Spell)Spell).Disturb(DisturbType.Unspecified, false, false);
 
-                    Spell spell = new FlySpell(this);
-                    spell.Cast();
+					Spell spell = new FlySpell(this);
+					spell.Cast();
 
-                    Timer.DelayCall(TimeSpan.FromSeconds(3), () => EndAction(typeof(FlySpell)));
-                }
-                else
-                {
-                    LocalOverheadMessage(MessageType.Regular, 0x3B2, 1075124); // You must wait before casting that spell again.
-                }
-            }
-            else if (IsValidLandLocation(Location, Map))
-            {
-                if (BeginAction(typeof(FlySpell)))
-                {
-                    if (Spell is Spell)
-                        ((Spell)Spell).Disturb(DisturbType.Unspecified, false, false);
+					Timer.DelayCall(TimeSpan.FromSeconds(3), () => EndAction(typeof(FlySpell)));
+				}
+				else
+				{
+					LocalOverheadMessage(MessageType.Regular, 0x3B2, 1075124); // You must wait before casting that spell again.
+				}
+			}
+			else if (IsValidLandLocation(Location, Map))
+			{
+				if (BeginAction(typeof(FlySpell)))
+				{
+					if (Spell is Spell)
+						((Spell)Spell).Disturb(DisturbType.Unspecified, false, false);
 
-                    Animate(AnimationType.Land, 0);
-                    Flying = false;
-                    BuffInfo.RemoveBuff(this, BuffIcon.Fly);
+					Animate(AnimationType.Land, 0);
+					Flying = false;
+					BuffInfo.RemoveBuff(this, BuffIcon.Fly);
 
-                    Timer.DelayCall(TimeSpan.FromSeconds(3), () => EndAction(typeof(FlySpell)));
-                }
-                else
-                {
-                    LocalOverheadMessage(MessageType.Regular, 0x3B2, 1075124); // You must wait before casting that spell again.
-                }
-            }
-            else
-                LocalOverheadMessage(MessageType.Regular, 0x3B2, 1113081); // You may not land here.
-        }
+					Timer.DelayCall(TimeSpan.FromSeconds(3), () => EndAction(typeof(FlySpell)));
+				}
+				else
+				{
+					LocalOverheadMessage(MessageType.Regular, 0x3B2, 1075124); // You must wait before casting that spell again.
+				}
+			}
+			else
+				LocalOverheadMessage(MessageType.Regular, 0x3B2, 1113081); // You may not land here.
+		}
 
-        public static bool IsValidLandLocation(Point3D p, Map map)
-        {
-            return map.CanFit(p.X, p.Y, p.Z, 16, false, false);
-        }
-        #endregion
+		public static bool IsValidLandLocation(Point3D p, Map map)
+		{
+			return map.CanFit(p.X, p.Y, p.Z, 16, false, false);
+		}
+		#endregion
 
-        private class CountAndTimeStamp
-        {
-            private int m_Count;
-            private DateTime m_Stamp;
+		private class CountAndTimeStamp
+		{
+			private int m_Count;
+			private DateTime m_Stamp;
 
-            public DateTime TimeStamp => m_Stamp;
+			public DateTime TimeStamp => m_Stamp;
 
-            public int Count
-            {
-                get { return m_Count; }
-                set
-                {
-                    m_Count = value;
-                    m_Stamp = DateTime.UtcNow;
-                }
-            }
-        }
+			public int Count
+			{
+				get { return m_Count; }
+				set
+				{
+					m_Count = value;
+					m_Stamp = DateTime.UtcNow;
+				}
+			}
+		}
 
-        private DesignContext m_DesignContext;
+		private DesignContext m_DesignContext;
 
-        private NpcGuild m_NpcGuild;
-        private DateTime m_NpcGuildJoinTime;
-        private TimeSpan m_NpcGuildGameTime;
-        private PlayerFlag m_Flags;
-        private ExtendedPlayerFlag m_ExtendedFlags;
-        private int m_Profession;
+		private NpcGuild m_NpcGuild;
+		private DateTime m_NpcGuildJoinTime;
+		private TimeSpan m_NpcGuildGameTime;
+		private PlayerFlag m_Flags;
+		private ExtendedPlayerFlag m_ExtendedFlags;
+		private int m_Profession;
 
-        private int m_NonAutoreinsuredItems;
-        // number of items that could not be automaitically reinsured because gold in bank was not enough
+		private int m_NonAutoreinsuredItems;
+		// number of items that could not be automaitically reinsured because gold in bank was not enough
 
-        /*
+		/*
 		* a value of zero means, that the mobile is not executing the spell. Otherwise,
 		* the value should match the BaseMana required
 		*/
-        private int m_ExecutesLightningStrike; // move to Server.Mobiles??
+		private int m_ExecutesLightningStrike; // move to Server.Mobiles??
 
-        private DateTime m_LastOnline;
-        private RankDefinition m_GuildRank;
-        private bool m_NextEnhanceSuccess;
+		private DateTime m_LastOnline;
+		private RankDefinition m_GuildRank;
+		private bool m_NextEnhanceSuccess;
 
-		private OSUCharacter osu_char_info;
-
+		public OSUCharacter osu_char_info;
 
         [CommandProperty(AccessLevel.GameMaster)]
         public bool NextEnhanceSuccess { get { return m_NextEnhanceSuccess; } set { m_NextEnhanceSuccess = value; } }

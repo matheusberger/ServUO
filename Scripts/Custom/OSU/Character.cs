@@ -5,7 +5,7 @@ using OSU.Civilizations;
 
 namespace OSU
 {
-	class OSUCharacter
+	public class OSUCharacter
 	{
 		private PlayerMobile base_char;
 
@@ -54,7 +54,7 @@ namespace OSU
 		private int clothes;
 
 		//rp system
-		private int civilization;
+		public Civilization civilization;
 		private int disguise;
 
 		private Languages[] known_languages;

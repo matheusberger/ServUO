@@ -21,14 +21,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Custom\OSU\Gumps\**" />
+    <EmbeddedResource Remove="Custom\OSU\Gumps\**" />
+    <None Remove="Custom\OSU\Gumps\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="System.Web" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Custom\OSU\Gumps\" />
   </ItemGroup>
 </Project>

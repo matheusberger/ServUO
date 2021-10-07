@@ -14,7 +14,7 @@ namespace OSU
 			Old
 		}
 
-		private PlayerMobile base_char;
+		public PlayerMobile base_char;
 
 		//leveling point system info
 		//how many points the player currently has in each category
@@ -55,10 +55,11 @@ namespace OSU
 		public int char_avatar;
 		public string char_physical_des;
 
-		private int hairstyle;
-		private int skin_tone;
-		private int clothes;
-
+		public int hairstyle;
+		public int facial_hair;
+		public int hair_color; 
+		public int skin_tone;
+		
 		//rp system
 		public Civilization civilization;
 		private int disguise;

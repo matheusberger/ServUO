@@ -253,7 +253,7 @@ namespace Server.Gumps
 			: base(0, 0)
 		{
 
-			m.CloseGump(typeof(CharStatsGump));
+			//m.CloseGump(typeof(CharStatsGump));
 
 			this.Closable = false;
 			this.Disposable = false;

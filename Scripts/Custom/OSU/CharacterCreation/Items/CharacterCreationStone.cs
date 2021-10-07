@@ -28,7 +28,7 @@ namespace Server.Items
 		{
 			PlayerMobile from = m as PlayerMobile;
 			CharacterCreationSystem.WipeAllTraits(from);
-
+			CharacterCreationSystem.BeginCreation(from);
 			from.SendGump(new CivilizationGump(from, 0));
 		}
 

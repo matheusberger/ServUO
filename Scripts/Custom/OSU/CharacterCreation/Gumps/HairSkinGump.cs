@@ -6,6 +6,8 @@ using Server.Mobiles;
 using Server.Gumps;
 using Server.Misc;
 
+using OSU;
+
 namespace Server.Gumps
 {
 	public class HairSkinGump : Gump
@@ -13,10 +15,16 @@ namespace Server.Gumps
 		int current_hair = 0;
 		int current_facial_hair;
 
+		int current_hair_color;
+		int current_skin_tone;
+
 		List<int> hair_list;
 		List<int> facial_hair_list;
 
-		public HairSkinGump(PlayerMobile m, int selected_hair = 0, int selected_facial_hair = 0)
+		List<int> hair_color_list;
+		List<int> skin_tone_list;
+
+		public HairSkinGump(PlayerMobile m, int selected_hair = 50700, int selected_facial_hair = 50801, int selected_hair_color = 0x30, int selected_skin_tone = 1002)
 			: base(0, 0)
 		{
 			m.CloseGump(typeof(HairSkinGump));
@@ -30,7 +38,11 @@ namespace Server.Gumps
 
 			current_hair = selected_hair;
 			current_facial_hair = selected_facial_hair;
+			current_hair_color = selected_hair_color;
+			current_skin_tone = selected_skin_tone;
+
 			InitHairList(m.Female);
+			InitColorList();
 
 			AddPage(0);
 			AddImage(12, 12, 40322);
@@ -40,7 +52,7 @@ namespace Server.Gumps
 			AddHtml(120, 380, 224, 30, @"", (bool)false, (bool)false);
 
 
-			//facial hair
+			//facial hair selection
 			if (!m.Female)
 			{
 				AddLabel(674, 330, 1153, @"Pelos Faciais");
@@ -56,7 +68,7 @@ namespace Server.Gumps
 			}
 
 
-			//hair
+			//hair selection
 			AddLabel(479, 330, 1153, @"Cabelos");
 
 			int img_x = 395, img_y = 320, img_x_offset = 100, img_y_offset = 130;
@@ -74,73 +86,38 @@ namespace Server.Gumps
 				btn_y += btn_y_offset;
 			}
 
-			//AddImage(395, 319, 52504);
-			//AddImage(395, 448, 52502);
-			//AddImage(395, 578, 52523);
-			//AddImage(485, 319, 52531);
-			//AddImage(485, 448, 52532);
-			//AddImage(485, 578, 52554);
 
-			//AddButton(445, 385, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			//AddButton(445, 510, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			//AddButton(445, 635, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			//AddButton(541, 385, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			//AddButton(541, 510, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			//AddButton(541, 635, 9903, 9904, 0, GumpButtonType.Reply, 0);
-
-
-
-			//hair collor stuff
+			//hair color selection
 			AddLabel(818, 330, 1153, @"Cor de Cabelo");
 
-			AddButton(787, 377, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 407, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 437, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 467, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 497, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 527, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 557, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 587, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 617, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 647, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(787, 677, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddLabel(815, 375, 48, @"Cor de Cabelo");
-			AddLabel(815, 405, 143, @"Cor de Cabelo");
-			AddLabel(815, 435, 38, @"Cor de Cabelo");
-			AddLabel(815, 465, 341, @"Cor de Cabelo");
-			AddLabel(815, 495, 1050, @"Cor de Cabelo");
-			AddLabel(815, 525, 895, @"Cor de Cabelo");
-			AddLabel(815, 555, 923, @"Cor de Cabelo");
-			AddLabel(815, 585, 1001, @"Cor de Cabelo");
-			AddLabel(815, 615, 1007, @"Cor de Cabelo");
-			AddLabel(815, 645, 446, @"Cor de Cabelo");
-			AddLabel(815, 675, 450, @"Cor de Cabelo");
+			btn_x = 787;
+			btn_y = 375;
+			btn_y_offset = 30;
+
+			int label_x = 815,  label_y = 375,  label_offset = 30;
+
+			for (int i = 0; i < hair_color_list.Count; i++)
+			{
+				AddButton(btn_x, btn_y + (i * btn_y_offset), current_hair_color == hair_color_list[i] ? 9904 : 9903, current_hair_color == hair_color_list[i] ? 9903 : 9904, hair_color_list[i], GumpButtonType.Reply, 0);
+				AddLabel(label_x, label_y + (i * label_offset), hair_color_list[i], "Cor dos cabelos");
+			}
 
 			//skin tone stuff
 			AddLabel(950, 330, 1153, @"Cor de Pele");
 
-			AddButton(915, 378, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 408, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 438, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 468, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 498, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 528, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 558, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 588, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 618, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 648, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddButton(915, 678, 9903, 9904, 0, GumpButtonType.Reply, 0);
-			AddLabel(943, 378, 1002, @"Cor de Pele");
-			AddLabel(943, 408, 1007, @"Cor de Pele");
-			AddLabel(943, 438, 1016, @"Cor de Pele");
-			AddLabel(943, 468, 1030, @"Cor de Pele");
-			AddLabel(943, 498, 1034, @"Cor de Pele");
-			AddLabel(943, 528, 1037, @"Cor de Pele");
-			AddLabel(943, 558, 1043, @"Cor de Pele");
-			AddLabel(943, 588, 1050, @"Cor de Pele");
-			AddLabel(943, 618, 1052, @"Cor de Pele");
-			AddLabel(943, 648, 1058, @"Cor de Pele");
-			AddLabel(943, 678, 1021, @"Cor de Pele");
+			btn_x = 915;
+			btn_y = 375;
+			btn_y_offset = 30;
+
+			label_x = 945;
+			label_y = 375;
+			label_offset = 30;
+
+			for (int i = 0; i < skin_tone_list.Count; i++)
+			{
+				AddButton(btn_x, btn_y + (i * btn_y_offset), current_skin_tone == skin_tone_list[i] ? 9904 : 9903, current_skin_tone == skin_tone_list[i] ? 9903 : 9904, skin_tone_list[i], GumpButtonType.Reply, 0);
+				AddLabel(label_x, label_y + (i * label_offset), skin_tone_list[i], "Cor de pele");
+			}
 
 			AddLabel(125, 340, 1153, @"Nome");
 			AddTextEntry(121, 380, 224, 30, 1153, 0, "Digite seu nome aqui");
@@ -170,12 +147,92 @@ namespace Server.Gumps
 				case 999:
 					//go to next
 					break;
+
+				case 50700:
+				case 50701:
+				case 52477:
+				case 52481:
+				case 52522:
+				case 52524:
+				case 52531:
+					current_hair = info.ButtonID;
+					m.HairItemID = 0;
+					m.HairItemID = current_hair;
+					//CharacterCreationSystem.PreviewHair(current_hair);
+					m.SendGump(new HairSkinGump(m, current_hair, current_facial_hair, current_hair_color, current_skin_tone));
+					break;
+				case 50801:
+				case 52352:
+				case 52367:
+					current_facial_hair = info.ButtonID;
+					m.FacialHairItemID = current_facial_hair;
+					//CharacterCreationSystem.PreviewFacialHair(current_facial_hair);
+					m.SendGump(new HairSkinGump(m, current_hair, current_facial_hair, current_hair_color, current_skin_tone));
+					break;
+				case 184:
+				case 143:
+				case 382:
+				case 341:
+				case 996:
+				case 895:
+				case 923:
+				case 998:
+				case 930:
+				case 446:
+				case 450:
+					current_hair_color = info.ButtonID;
+					CharacterCreationSystem.PreviewHairColor(current_hair_color);
+					m.SendGump(new HairSkinGump(m, current_hair, current_facial_hair, current_hair_color, current_skin_tone));
+					break;
+				case 1002:
+				case 1007:
+				case 1016:
+				case 1030:
+				case 1034:
+				case 1037:
+				case 1043:
+				case 1050:
+				case 1052:
+				case 1058:
+				case 1021:
+					current_skin_tone = info.ButtonID;
+					CharacterCreationSystem.PreviewSkinTone(current_skin_tone);
+					m.SendGump(new HairSkinGump(m, current_hair, current_facial_hair, current_hair_color, current_skin_tone));
+					break;
 				default:
-					current_hair = hair_list.Contains(info.ButtonID) ? info.ButtonID : current_hair;
-					current_facial_hair = facial_hair_list.Contains(info.ButtonID) ? info.ButtonID : current_facial_hair;
-					m.SendGump(new HairSkinGump(m, current_hair, current_facial_hair));
+					m.SendGump(new HairSkinGump(m, current_hair, current_facial_hair, current_hair_color, current_skin_tone));
 					break;
 			}
+		}
+
+		private void InitColorList()
+		{
+			hair_color_list = new List<int>();
+			skin_tone_list = new List<int>();
+
+			hair_color_list.Add(184);
+			hair_color_list.Add(143);
+			hair_color_list.Add(382);
+			hair_color_list.Add(341);
+			hair_color_list.Add(996);
+			hair_color_list.Add(895);
+			hair_color_list.Add(923);
+			hair_color_list.Add(998);
+			hair_color_list.Add(930);
+			hair_color_list.Add(446);
+			hair_color_list.Add(450);
+
+			skin_tone_list.Add(1002);
+			skin_tone_list.Add(1007);
+			skin_tone_list.Add(1016);
+			skin_tone_list.Add(1030);
+			skin_tone_list.Add(1034);
+			skin_tone_list.Add(1037);
+			skin_tone_list.Add(1043);
+			skin_tone_list.Add(1050);
+			skin_tone_list.Add(1052);
+			skin_tone_list.Add(1058);
+			skin_tone_list.Add(1021);
 		}
 
 		private void InitHairList(bool female)
@@ -194,14 +251,16 @@ namespace Server.Gumps
 			}
 			else
 			{
-				hair_list.Add(52469);
-				hair_list.Add(52477);
-				hair_list.Add(52481);
-				hair_list.Add(52522);
-				hair_list.Add(52524);
-				hair_list.Add(52531);
+				//hair_list.Add(52469);
+				hair_list.Add(50700);
+				hair_list.Add(50701);
+				hair_list.Add(0x203D);
+				hair_list.Add(0x2044);
+				hair_list.Add(0x2045);
+				hair_list.Add(0x204A);
 
-				facial_hair_list.Add(52353);
+				//facial_hair_list.Add(52353);
+				facial_hair_list.Add(50801);
 				facial_hair_list.Add(52352);
 				facial_hair_list.Add(52367);
 			}

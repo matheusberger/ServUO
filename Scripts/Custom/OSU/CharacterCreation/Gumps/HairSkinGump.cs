@@ -145,7 +145,7 @@ namespace Server.Gumps
 			{
 
 				case 999:
-					m.SendGump(new OSUBackgroundGump(m));
+					m.SendGump(new OSUCharBGGump(m));
 					break;
 				case 50700:
 				case 50701:

@@ -15,7 +15,7 @@ namespace Server.BackgroundInfo
 					"be able to see emotes."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Deaf()); }
+		public static void Initialize(){ }
 		
 		public Deaf() {}
 	}

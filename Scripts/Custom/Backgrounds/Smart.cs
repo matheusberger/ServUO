@@ -14,7 +14,7 @@ namespace Server.BackgroundInfo
 		public override string Description{ get{ return "This merit will raise both your current Intelligence and also your Intelligence cap by 5."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Smart()); }
+		public static void Initialize(){ }
 		
 		public override bool MeetsOurRequirements( PlayerMobile m, bool message )
 		{
@@ -35,15 +35,13 @@ namespace Server.BackgroundInfo
 		public override void OnAddedTo( PlayerMobile m )
 		{
 			m.RawInt += 5;
-			m.CPCapOffset += 1000;
-			m.FeatSlots -= 1000;
+			m.osu_char_info.background_bonus_points += 1000;
 		}
 		
 		public override void OnRemovedFrom( PlayerMobile m )
 		{
 			m.RawInt -= 5;
-			m.CPCapOffset -= 1000;
-			m.FeatSlots += 1000;
+			m.osu_char_info.background_bonus_points -= 1000;
 		}
 		
 		public Smart() {}

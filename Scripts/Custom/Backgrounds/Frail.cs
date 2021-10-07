@@ -14,11 +14,11 @@ namespace Server.BackgroundInfo
 		public override string Description{ get{ return "This flaw will lower both your current Hit Points and also your Hit Points cap by 5."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Frail()); }
+		public static void Initialize(){ }
 
         public override bool CanAcquireThisBackground( PlayerMobile m )
         {
-            if( m.RawHits < 10 )
+            if( m.osu_char_info.hitpoints < 10 )
             {
                 m.SendMessage( "Your current Hit Points are already too low." );
                 return false;
@@ -29,12 +29,12 @@ namespace Server.BackgroundInfo
 		
 		public override void OnAddedTo( PlayerMobile m )
 		{
-			m.RawHits -= 5;
+			m.osu_char_info.hitpoints -= 5;
 		}
 		
 		public override void OnRemovedFrom( PlayerMobile m )
 		{
-			m.RawHits += 5;
+			m.osu_char_info.hitpoints += 5;
 		}
 		
 		public Frail() {}

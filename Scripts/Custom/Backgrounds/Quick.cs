@@ -14,7 +14,7 @@ namespace Server.BackgroundInfo
 		public override string Description{ get{ return "This merit will raise both your current Dexterity and also your Dexterity cap by 5."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Quick()); }
+		public static void Initialize(){ }
 		
 		public override bool MeetsOurRequirements( PlayerMobile m, bool message )
 		{

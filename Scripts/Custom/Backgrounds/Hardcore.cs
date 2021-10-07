@@ -15,7 +15,7 @@ namespace Server.BackgroundInfo
 		
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Hardcore()); }
+		public static void Initialize(){ }
 		
         public override bool CanAcquireThisBackground( PlayerMobile m )
         {
@@ -24,12 +24,12 @@ namespace Server.BackgroundInfo
 		
 		public override void OnAddedTo( PlayerMobile m )
 		{
-			m.IsHardcore = false;
+			
 		}
 		
 		public override void OnRemovedFrom( PlayerMobile m )
 		{
-			m.IsHardcore = false;
+			
 		}
 		
 		public Hardcore() {}

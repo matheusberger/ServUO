@@ -14,7 +14,7 @@ namespace Server.BackgroundInfo
 		public override string Description{ get{ return "This merit will raise both your current Strength and also your Strength cap by 5."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Strong()); }
+		public static void Initialize(){ }
 		
 		public override bool MeetsOurRequirements( PlayerMobile m, bool message )
 		{

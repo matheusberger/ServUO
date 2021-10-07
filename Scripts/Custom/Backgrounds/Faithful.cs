@@ -15,7 +15,7 @@ namespace Server.BackgroundInfo
 					"someone who worships the same deity as you do."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Faithful()); }
+		public static void Initialize(){ }
 		
 		public Faithful() {}
 	}

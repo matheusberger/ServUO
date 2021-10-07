@@ -14,7 +14,7 @@ namespace Server.BackgroundInfo
 		public override string Description{ get{ return "This flaw will lower both your current Strength and also your Strength cap by 5."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Weak()); }
+		public static void Initialize(){ }
 
         public override bool CanAcquireThisBackground( PlayerMobile m )
         {

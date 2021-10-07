@@ -14,7 +14,7 @@ namespace Server.BackgroundInfo
 {	
 	public abstract class BaseBackground : object
 	{
-		public static string WikiFolder = Server.Misc.StatusPage.LiveServer == true ? @"\Wiki\data\pages\backgrounds\" : @"\Backgrounds\";
+		//public static string WikiFolder = Server.Misc.StatusPage.LiveServer == true ? @"\Wiki\data\pages\backgrounds\" : @"\Backgrounds\";
 		
 		private int m_Level;
 		public int Level{ get{ return m_Level; } set{ m_Level = value; } }
@@ -47,7 +47,7 @@ namespace Server.BackgroundInfo
 		public bool TestBackgroundForPurchase( PlayerMobile m, BackgroundList opposite, bool message )
 		{
             XmlBackground.CleanUp(m, opposite);
-			if( m.Backgrounds.BackgroundDictionary[opposite].Level > 0 )
+			if( m.osu_char_info.Backgrounds.BackgroundDictionary[opposite].Level > 0 )
 			{
 				if( message )
 					m.SendMessage( "You already have the " + Backgrounds.Catalogue[opposite].Name + " background. " +
@@ -93,7 +93,7 @@ namespace Server.BackgroundInfo
 		
 		public bool HasThisBackground( PlayerMobile m )
 		{
-			return (m.Backgrounds.BackgroundDictionary[ListName].Level > 0);
+			return (m.osu_char_info.Backgrounds.BackgroundDictionary[ListName].Level > 0);
 		}
 		
 		public void AttemptPurchase( PlayerMobile m )
@@ -102,43 +102,12 @@ namespace Server.BackgroundInfo
             
             if( !MeetsOurRequirements(m, true) )
 				return;
-			
-			if( !HasThisBackground(m) && CanAcquireThisBackground(m) )
-			{
-				
-				if( (175000 + m.ExtraCPRewards + m.CPCapOffset) < (m.CPSpent + Cost) )
-				{
-					m.SendMessage( "Adding this background would lower your CP cap beyond the amount of CP you have already spent." );
-					return;
-				}
-				
-				m.CPCapOffset -= Cost;
-				m.FeatSlots += Cost;
-				Level = 1;
-				m.SendMessage( "You have acquired the " + Name + " background." );
-				OnAddedTo( m );
-				
-				if( m.HasGump( typeof(CharInfoGump) ) )
-					m.SendGump( new CharInfoGump(m) );
-			}
 
-            else if( HasThisBackground(m) && CanRemoveThisBackground(m) )
-			{
-				if( (175000 + m.ExtraCPRewards + m.CPCapOffset + Cost) < (m.CPSpent) )
-				{
-					m.SendMessage( "Removing this background would lower your CP cap beyond the amount of CP you have already spent." );
-					return;
-				}
-				
-				m.CPCapOffset += Cost;
-				m.FeatSlots -= Cost;
-				Level = 0;
-				m.SendMessage( "You have removed the " + Name + " background." );
-				OnRemovedFrom( m );
-				
-				if( m.HasGump( typeof(CharInfoGump) ) )
-					m.SendGump( new CharInfoGump(m) );
-			}
+			m.osu_char_info.background_bonus_points -= Cost;
+
+			Level = 1;
+			m.SendMessage("You have acquired the " + Name + " background.");
+			OnAddedTo(m);
 		}
 
         public virtual bool CanAcquireThisBackground( PlayerMobile m )
@@ -179,39 +148,6 @@ namespace Server.BackgroundInfo
 				"<span id=\"boldTopic\">CP Cap Offset:</span> " + background.Cost.ToString();
 			
 			return description;
-		}
-		
-		public static void PublishWikiPage( BaseBackground background, StreamWriter op )
-		{
-			FeatInfo.BaseFeat.HandleString( "====== " + background.Name + " ======", op );
-			FeatInfo.BaseFeat.HandleString( "**Description:** ", op );
-			FeatInfo.BaseFeat.HandleString( background.Description + "<br><br>", op );
-			FeatInfo.BaseFeat.HandleString( "**CP Cap Offset:** " + background.Cost.ToString(), op );
-		}
-
-		public static void WriteWebpage( BaseBackground background )
-		{
-			string fileName = OldPages == true ? background.Name.Replace(" ", "") : background.Name.Replace(" ", "_").ToLower();
-			string extension = OldPages == true ? ".htm" : ".txt";
-			
-			using ( StreamWriter op = new StreamWriter( Misc.StatusPage.WebFolder + WikiFolder + fileName + extension ) )
-			{
-				if( OldPages )
-				{
-					op.WriteLine( "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" );
-					op.WriteLine( "<html xmlns=\"http://www.w3.org/1999/xhtml\">" );
-					op.WriteLine( "<head>" );
-					op.WriteLine( "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />" );
-					op.WriteLine( "<title>" + background.Name + "</title>" );
-					op.WriteLine( "<link href=\"styles.css\" rel=\"stylesheet\" type=\"text/css\" />" );
-					op.WriteLine( "<style type=\"text/css\"></style></head><body><div id=\"main\">" );
-					op.WriteLine( GetWebpageDescription(background) );
-					op.WriteLine( "</div></body></html>" );
-				}
-				
-				else
-					PublishWikiPage( background, op );
-			}
 		}
 	}
 }

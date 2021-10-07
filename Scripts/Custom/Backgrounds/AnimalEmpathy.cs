@@ -15,7 +15,7 @@ namespace Server.BackgroundInfo
 					"ever getting attacked by them."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new AnimalEmpathy()); }
+		public static void Initialize(){ }
 		
 		public AnimalEmpathy() {}
 	}

@@ -21,6 +21,11 @@ namespace Server.Gumps
 			this.Dragable = true;
 			this.Resizable = false;
 
+			foreach (var background in Backgrounds.GetAllBackgrounds())
+			{
+				m.SendMessage(background.Name);
+			}
+
 			this.AddPage(0);
 			this.AddBackground(54, 31, 400, 383, 9270);
 			this.AddBackground(71, 192, 364, 202, 3500);
@@ -54,20 +59,6 @@ namespace Server.Gumps
 						 " you can reopen this gump by using the .StatPoints command.", (bool)true, (bool)true);
 
 		}
-		public static int GetValue(int feat)
-		{
-			if (feat == 1)
-				return 1;
-
-			if (feat == 2)
-				return 3;
-
-			if (feat == 3)
-				return 6;
-
-			return 0;
-		}
-
 		public override void OnResponse(NetState sender, RelayInfo info)
 		{
 			PlayerMobile m = sender.Mobile as PlayerMobile;

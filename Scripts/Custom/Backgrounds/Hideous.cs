@@ -15,7 +15,7 @@ namespace Server.BackgroundInfo
 					"looks to hideous (when writing your description, take this into consideration)."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Hideous()); }
+		public static void Initialize(){ }
 		
 		public override bool MeetsOurRequirements( PlayerMobile m, bool message )
 		{

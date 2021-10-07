@@ -134,7 +134,7 @@ namespace Server.Gumps
         	
         	for( int i = 0; (i + (m_Scroll * m_BackgroundsPerPage)) < OurBackgrounds.Length && i < m_BackgroundsPerPage; i++ )
     		{
-        		BaseBackground background = m_Viewed.Backgrounds.BackgroundDictionary[OurBackgrounds[i + (m_Scroll * m_BackgroundsPerPage)].ListName];
+        		BaseBackground background = m_Viewed.osu_char_info.Backgrounds.BackgroundDictionary[OurBackgrounds[i + (m_Scroll * m_BackgroundsPerPage)].ListName];
     			AddLabel( 309, height, 0, background.Name );
     			AddButton( 272, (height + 2), GetCheckBox( background.ListName ), m_UnselectedCheckBox, (i + (int)Buttons.Background1), GumpButtonType.Reply, 0 );
 				AddImage( 291, (height + 5), GetInfoColour(background) );
@@ -186,7 +186,7 @@ namespace Server.Gumps
         	BaseBackground background = null;
         	
         	if( m_Viewing != BackgroundList.None )
-        		background = m_Viewed.Backgrounds.BackgroundDictionary[m_Viewing];
+        		background = m_Viewed.osu_char_info.Backgrounds.BackgroundDictionary[m_Viewing];
 
         	return background;
         }

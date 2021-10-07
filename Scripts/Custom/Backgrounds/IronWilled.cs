@@ -14,7 +14,7 @@ namespace Server.BackgroundInfo
 		public override string Description{ get{ return "This merit will raise both your current Mana and also your Mana cap by 5."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new IronWilled()); }
+		public static void Initialize(){ }
 		
 		public override bool MeetsOurRequirements( PlayerMobile m, bool message )
 		{
@@ -23,7 +23,7 @@ namespace Server.BackgroundInfo
 
         public override bool CanRemoveThisBackground( PlayerMobile m )
         {
-            if( m.RawMana < 10 )
+            if( m.osu_char_info.mana < 10 )
             {
                 m.SendMessage( "That would lower your current Mana too much." );
                 return false;
@@ -34,12 +34,12 @@ namespace Server.BackgroundInfo
 		
 		public override void OnAddedTo( PlayerMobile m )
 		{
-			m.RawMana += 5;
+			m.osu_char_info.mana += 5;
 		}
 		
 		public override void OnRemovedFrom( PlayerMobile m )
 		{
-			m.RawMana -= 5;
+			m.osu_char_info.mana -= 5;
 		}
 		
 		public IronWilled() {}

@@ -15,7 +15,7 @@ namespace Server.BackgroundInfo
 					"emotes will be available to you."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Mute()); }
+		public static void Initialize(){ }
 		
 		public Mute() {}
 	}

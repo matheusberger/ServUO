@@ -14,7 +14,7 @@ namespace Server.BackgroundInfo
         public override string Description { get { return "This flaw will have a faint negative impact on almost everything combat related."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Unlucky()); }
+		public static void Initialize(){ }
 		
 		public override bool MeetsOurRequirements( PlayerMobile m, bool message )
 		{

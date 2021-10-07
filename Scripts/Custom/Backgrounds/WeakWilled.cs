@@ -14,7 +14,7 @@ namespace Server.BackgroundInfo
 		public override string Description{ get{ return "This flaw will lower both your current Mana and also your Mana cap by 5."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new WeakWilled()); }
+		public static void Initialize(){ }
 
         public override bool MeetsOurRequirements( PlayerMobile m, bool message )
         {
@@ -23,7 +23,7 @@ namespace Server.BackgroundInfo
 
         public override bool CanAcquireThisBackground( PlayerMobile m )
         {
-            if( m.RawMana < 10 )
+            if( m.osu_char_info.mana < 10 )
             {
                 m.SendMessage( "Your current Mana is already too low." );
                 return false;
@@ -34,12 +34,12 @@ namespace Server.BackgroundInfo
 		
 		public override void OnAddedTo( PlayerMobile m )
 		{
-			m.RawMana -= 5;
+			m.osu_char_info.mana -= 5;
 		}
 		
 		public override void OnRemovedFrom( PlayerMobile m )
 		{
-			m.RawMana += 5;
+			m.osu_char_info.mana += 5;
 		}
 		
 		public WeakWilled() {}

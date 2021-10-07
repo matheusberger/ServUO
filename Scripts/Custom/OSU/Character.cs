@@ -1,5 +1,7 @@
 ﻿using System;
 using Server.Mobiles;
+using Server.Misc;
+
 using OSU;
 using OSU.Civilizations;
 
@@ -18,22 +20,22 @@ namespace OSU
 
 		//leveling point system info
 		//how many points the player currently has in each category
-		private int current_combat_points;
-		private int current_profession_points;
-		private int current_magic_points;
-		private int current_hability_points;
+		public int current_combat_points;
+		public int current_profession_points;
+		public int current_magic_points;
+		public int current_hability_points;
 
 		//how many points the player has gathered in all his playthough 
-		private int total_combat_points = 100;
-		private int total_profession_points;
-		private int total_magic_points;
-		private int total_hability_points;
+		public int total_combat_points = 100;
+		public int total_profession_points;
+		public int total_magic_points;
+		public int total_hability_points;
 
 		//maximum points a player can gather through each playtrhough:  total_x_points < max_x_points
-		private int max_combat_points = 500;
-		private int max_profession_points;
-		private int max_magic_points;
-		private int max_hability_points;
+		public int max_combat_points = 500;
+		public int max_profession_points;
+		public int max_magic_points;
+		public int max_hability_points;
 
 		//char stats
 		private int char_level;
@@ -70,7 +72,8 @@ namespace OSU
 		private OSUSkill[] skill_list;
 
 		//backgrounds
-		private int[] faults;
-		private int[] qualities;
+		public Backgrounds Backgrounds;
+
+		public int background_bonus_points;
 	}
 }

@@ -15,7 +15,7 @@ namespace Server.BackgroundInfo
 					"on horseback, however."; } }
 		public override string FullDescription{ get{ return GetFullDescription(this); } }
 		
-		public static void Initialize(){ WriteWebpage(new Lame()); }
+		public static void Initialize(){ }
 		
 		public Lame() {}
 	}

@@ -19,7 +19,7 @@ namespace OSU.Structs
 			max_points = max_p;
 			remaining_points = max_points;
 
-			change_factor = 2;
+			change_factor = 10;
 
 			bonus_str = 0;
 			bonus_dex = 0;

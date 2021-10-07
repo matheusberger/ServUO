@@ -70,14 +70,14 @@ namespace Server.BackgroundInfo
             
             bool warned = false;
 			
-			if( ListName != BackgroundList.Attractive )
-				warned = !TestBackgroundForPurchase( m, BackgroundList.Attractive, message );
+			//if( ListName != BackgroundList.Attractive )
+			//	warned = !TestBackgroundForPurchase( m, BackgroundList.Attractive, message );
 			
-			if( !warned && ListName != BackgroundList.GoodLooking )
-				warned = !TestBackgroundForPurchase( m, BackgroundList.GoodLooking, message );
+			//if( !warned && ListName != BackgroundList.GoodLooking )
+			//	warned = !TestBackgroundForPurchase( m, BackgroundList.GoodLooking, message );
 			
-			if( !warned && ListName != BackgroundList.Gorgeous )
-				warned = !TestBackgroundForPurchase( m, BackgroundList.Gorgeous, message );
+			//if( !warned && ListName != BackgroundList.Gorgeous )
+			//	warned = !TestBackgroundForPurchase( m, BackgroundList.Gorgeous, message );
 			
 			if( !warned && ListName != BackgroundList.Homely )
 				warned = !TestBackgroundForPurchase( m, BackgroundList.Homely, message );

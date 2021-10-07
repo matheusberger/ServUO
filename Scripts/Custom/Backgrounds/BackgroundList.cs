@@ -22,9 +22,9 @@
 		UnfocusedMind,
 		Lucky,
 		Unlucky,
-		Attractive,
+		//Attractive,
 		GoodLooking,
-		Gorgeous,
+		//Gorgeous,
 		Homely,
 		Ugly,
 		Hideous,
@@ -33,7 +33,7 @@
 		Lame,
 		AnimalEmpathy,
 		Faithful,
-		Hardcore,
+		//Hardcore,
 		None
 	}
 }

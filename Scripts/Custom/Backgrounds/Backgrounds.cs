@@ -227,9 +227,9 @@ namespace Server.Misc
 	            test = reader.ReadInt();
 	            test = reader.ReadInt();
 	            BackgroundDictionary[BackgroundList.Lucky].Level = reader.ReadInt();
-	            BackgroundDictionary[BackgroundList.Attractive].Level = reader.ReadInt();
+	            //BackgroundDictionary[BackgroundList.Attractive].Level = reader.ReadInt();
 	            BackgroundDictionary[BackgroundList.GoodLooking].Level = reader.ReadInt();
-	            BackgroundDictionary[BackgroundList.Gorgeous].Level = reader.ReadInt();
+	            //BackgroundDictionary[BackgroundList.Gorgeous].Level = reader.ReadInt();
 	            test = reader.ReadInt();
 	            test = reader.ReadInt();
 	            test = reader.ReadInt();

@@ -47,7 +47,11 @@ namespace Server.Gumps
 			AddImage(12, 12, 40322);
 			AddLabel(328, 45, 1153, @"Criacao de Personagem");
 			AddLabel(113, 99, 1153, @"Povos");
-			AddHtml(109, 128, 608, 126, @"<p>TUTORIAL PRA FAZER AS DOIDEIRA DOIDA</p> <a href=https://en.wikipedia.org/wiki/Ultima_Online> CLICA AQUII PRA WIKI</a> ", (bool)false, (bool)true);
+			AddHtml(109, 128, 608, 126, @"<p>Abaixo voce pode escolher o povo do qual seu personagem vai fazer parte. "
+									   + "Ao escolher uma cultura, voce podera ver ao lado suas characteristicas fisicas, culturais e sociais. "
+									   + "Fique atento para as linguas que falam, skills das quais nao podem usufruir, e o estado " 
+									   + "atual no qual a civilizacao se encontra. Para informacoes mais detalhadas visite a nossa wiki. "
+									   + "clickando no url </p> <a href=https://en.wikipedia.org/wiki/Ultima_Online> Wiki </a> ", (bool)false, (bool)true);
 
 			int button_x_pos = 111, label_x_pos = 140;
 			int y_position = 331, y_offset = 40;

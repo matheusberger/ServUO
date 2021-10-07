@@ -97,13 +97,20 @@ namespace OSU
 
 		public struct CivilizationDescriptions
 		{
-			public  static string AludiaDesc = @"<p>Aludia Moria was founded by Durin at the end of the Ages"
-												+ "of the Stars. During his reign, the precious metal "
-												+ "mithril was discovered in the mines, and some of the"
-												+ "major structures of Moria were built: Durin's Bridge,"
-												+ "the Second Hall, the Endless Stair and Durin's "
-												+ "Tower. Durin died before the end of the First Age. "
-												+ "He was buried in the royal tombs of Khazad-dûm. </p>";
+			public  static string AludiaDesc = @"<p>Os Aludes são humanos provindos do continente de Linarin "
+												+ "Centenas de anos atrás, uma pequena vila apareceu as beiras do rio Vidore, "
+												+ "que na velha língua significa “sem vida”. Aquela era uma área considerada inútil "
+												+ "aos olhos dos Théranos pois animais não habitavam sua floresta, nem peixes, "
+												+ "o seu rio. Porém foi lá que uma dúzia de pessoas resolveu se estabelecer. A "
+												+ "verdade é que depois de terem sido avistados lá, relatos foram documentados sobre "
+												+ "eventos estranhos de natureza desconhecida. Demorou muito tempo para os Théranos "
+												+ "entenderem a magia, apesar de ser algo que os moradores daquela pequena vila "
+												+ "já mestravam.  A vila se chamou de Aludia. Com os anos ela foi crescendo, prosperando, "
+												+ "e virou o centro de Linarin.<br> <br>" 
+												+ "Linguagens Faladas - Comum, Aulure (Velha lingua) <br>" 
+												+ "Skills desativadas - Parrying - Hiding - Animal Taming <br>" 
+												+ "Aludia nao tem aliancas com nenhum outro povo <br>"
+												+ "Aludia nao esta em guerra com nenhum outro povo </p>";
 
 			public static string DurahDesc = @"<p>Durah Moria was founded by Durin at the end of the Ages"
 												+ "of the Stars. During his reign, the precious metal "
@@ -123,12 +130,12 @@ namespace OSU
 			// impossible skills to learn
 			// languages this civilization speaks
 			// civilization state
-			public static Civilization Aludia = new Civilization("Aludia", "Os Aludis", 180, 160, 90, 50,
-																19, 12, 11, 100, 100, 100,
+			public static Civilization Aludia = new Civilization("Aludia", "Os Aludes", 190, 160, 100, 60,
+																10, 20, 30, 50, 40, 60,
 																CivilizationDescriptions.AludiaDesc,
 																CivilizationImpossibleSkills.AludiaImpossible,
 																CivilizationLanguages.AludiaLangs,
-																new CivState(false, false, true));
+																new CivState(false, false, false));
 
 
 			public static Civilization Durah = new Civilization("Durah", "Os Durah", 190, 180, 110, 80,

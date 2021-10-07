@@ -1,0 +1,39 @@
+﻿namespace Server.Mobiles
+{
+	public enum BackgroundList
+	{
+		Strong,
+		Quick,
+		Smart,
+		Tough,
+		Fit,
+		IronWilled,
+		Weak,
+		Clumsy,
+		Feebleminded,
+		Frail,
+		Unenergetic,
+		WeakWilled,
+		QuickHealer,
+		Resilient,
+		FocusedMind,
+		SlowHealer,
+		OutOfShape,
+		UnfocusedMind,
+		Lucky,
+		Unlucky,
+		Attractive,
+		GoodLooking,
+		Gorgeous,
+		Homely,
+		Ugly,
+		Hideous,
+		Mute,
+		Deaf,
+		Lame,
+		AnimalEmpathy,
+		Faithful,
+		Hardcore,
+		None
+	}
+}

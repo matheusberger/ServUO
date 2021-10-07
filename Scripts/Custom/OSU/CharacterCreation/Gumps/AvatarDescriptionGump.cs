@@ -84,8 +84,8 @@ namespace Server.Gumps
 
 			}
 
-			if (m.HasGump(typeof(BackgroundsGump)))
-				m.SendGump(new BackgroundsGump(m));
+			if (m.HasGump(typeof(OSUCharBGGump)))
+				m.SendGump(new OSUCharBGGump(m));
 
 			if (info.ButtonID != 0)
 			{

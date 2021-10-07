@@ -27,7 +27,7 @@ namespace Server.Gumps
 		public HairSkinGump(PlayerMobile m, int selected_hair = 50700, int selected_facial_hair = 50801, int selected_hair_color = 0x30, int selected_skin_tone = 1002)
 			: base(0, 0)
 		{
-			m.CloseGump(typeof(HairSkinGump));
+			//m.CloseGump(typeof(HairSkinGump));
 
 			this.Closable = false;
 			this.Disposable = false;
@@ -145,9 +145,8 @@ namespace Server.Gumps
 			{
 
 				case 999:
-					//go to next
+					m.SendGump(new OSUBackgroundGump(m));
 					break;
-
 				case 50700:
 				case 50701:
 				case 52477:

@@ -8,13 +8,14 @@ using Server.Misc;
 
 namespace Server.Gumps
 {
-	public class BackgroundsGump : Gump
+	public class OSUCharBGGump : Gump
 	{
 
-		public BackgroundsGump(PlayerMobile m)
+		public OSUCharBGGump(PlayerMobile m)
 			: base(0, 0)
 		{
-			m.CloseGump(typeof(BackgroundsGump));
+			//m.CloseGump(typeof(OSUBackgroundsGump));
+			
 			this.Closable = false;
 			this.Disposable = false;
 			this.Dragable = true;

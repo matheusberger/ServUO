@@ -18,7 +18,7 @@ namespace OSU
 
 		//leveling point system info
 		//how many points the player currently has in each category
-		private int current_combat_points = 50;
+		private int current_combat_points;
 		private int current_profession_points;
 		private int current_magic_points;
 		private int current_hability_points;
@@ -40,20 +40,20 @@ namespace OSU
 		private int max_char_level;
 		private int current_char_exp;
 
-		private int str;
-		private int dex;
-		private int inteligence;
+		public int str;
+		public int dex;
+		public int inteligence;
 
-		private int hitpoints;
-		private int stamina;
-		private int mana;
+		public int hitpoints;
+		public int stamina;
+		public int mana;
 
 		//char details
 		private int char_weight;
 		private int char_height;
 
-		private int char_avatar;
-		private string char_physical_des;
+		public int char_avatar;
+		public string char_physical_des;
 
 		private int hairstyle;
 		private int skin_tone;
@@ -65,7 +65,7 @@ namespace OSU
 
 		public Age age;
 
-		private Languages[] known_languages;
+		public Languages[] known_languages;
 		private OSUSkill[] skill_list;
 
 		//backgrounds

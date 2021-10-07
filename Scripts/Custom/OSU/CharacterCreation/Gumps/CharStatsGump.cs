@@ -7,9 +7,10 @@ using Server.Gumps;
 using Server.Misc;
 
 using OSU;
+using OSU.Structs;
 using OSU.Civilizations;
 
-namespace Server.Gumps
+namespace OSU.Structs
 {
 	public struct CharStats
 	{
@@ -92,7 +93,7 @@ namespace Server.Gumps
 			int tmp_points = remaining_points;
 			tmp_points -= multiplier * change_factor;
 
-			if(0 <= tmp_points && tmp_points <= 50)
+			if (0 <= tmp_points && tmp_points <= 50)
 			{
 				remaining_points = tmp_points;
 				success = true;
@@ -155,13 +156,15 @@ namespace Server.Gumps
 			}
 		}
 	}
-	
+
 	public struct AvatarDesc
 	{
-		public AvatarDesc(bool female, int age)
+		public AvatarDesc(bool female, int age, string current_desc)
 		{
 			this.female = female;
 			selected_age = age;
+			physical_desc = current_desc;
+
 			if (female)
 			{
 				switch (selected_age)
@@ -223,7 +226,7 @@ namespace Server.Gumps
 		public int current_avatar_code;
 
 		private int max_avatar_code;
-
+		public string physical_desc;
 		public void UpdateAvatarCode(int i)
 		{
 			int tmp_avatar_code = current_avatar_code;
@@ -235,22 +238,27 @@ namespace Server.Gumps
 		}
 	}
 
+}
+
+namespace Server.Gumps
+{
 	public class CharStatsGump : Gump
 	{
+		private Civilization civ;
 
 		private CharStats char_stats;
-		private Civilization civ;
 		private AvatarDesc avatar_info;
 
 		public CharStatsGump(PlayerMobile m, CharStats current_stats, AvatarDesc current_desc)
 			: base(0, 0)
-		{	
+		{
+
+			m.CloseGump(typeof(CharStatsGump));
+
 			this.Closable = false;
 			this.Disposable = false;
 			this.Dragable = true;
 			this.Resizable = false;
-
-			m.CloseGump(typeof(CharStatsGump));
 
 			civ = CharacterCreationSystem.temp_char.civilization;
 			char_stats = current_stats;
@@ -323,7 +331,7 @@ namespace Server.Gumps
 			
 			//Character Description
 			AddLabel(450, 559, 1153, @"Descricao fisica");
-			AddTextEntry(450, 594, 561, 141, 1153, 0, @"Escreva aqui a descrição física do seu personagem");
+			AddTextEntry(450, 594, 561, 141, 1153, 0, avatar_info.physical_desc == "" ? @"Escreva aqui a descrição física do seu personagem" : avatar_info.physical_desc);
 
 			//Forward Button
 			AddButton(1055, 761, 4005, 4007, 999, GumpButtonType.Reply, 0);
@@ -336,18 +344,25 @@ namespace Server.Gumps
 			if (m == null)
 				return;
 
+			string desc = "";
+			if (info.TextEntries.Length > 0)
+			{
+				desc = info.TextEntries[0].Text;
+			}
+
 			switch (info.ButtonID)
 			{
 				case 999:
 					if (char_stats.remaining_points > 0)
 					{
 						m.SendMessage("Você ainda não distribuiu todos os pontos");
-						m.SendGump(new CharStatsGump(m, char_stats, avatar_info));
+						m.SendGump(new CharStatsGump(m, char_stats, new AvatarDesc(m.Female, avatar_info.selected_age, desc)));
 					}
 					else
 					{
 						//update temp char in CharacterCreationSystem with the status, age, description and avatar;
-						//go to next creation step
+						CharacterCreationSystem.SetCharStats(char_stats, avatar_info);
+						m.SendGump(new HairSkinGump(m));
 					}
 					break;
 				case -10:
@@ -357,13 +372,13 @@ namespace Server.Gumps
 					avatar_info.UpdateAvatarCode(1);
 					break;
 				case 20:
-					avatar_info = new AvatarDesc(m.Female, 0);
+					avatar_info = new AvatarDesc(m.Female, 0, desc);
 					break;
 				case 30:
-					avatar_info = new AvatarDesc(m.Female, 1);
+					avatar_info = new AvatarDesc(m.Female, 1, desc);
 					break;
 				case 40:
-					avatar_info = new AvatarDesc(m.Female, 2);
+					avatar_info = new AvatarDesc(m.Female, 2, desc);
 					break;
 				default:
 					//update bonus status
@@ -372,35 +387,11 @@ namespace Server.Gumps
 			}
 
 			//show updated gump
-			m.SendGump(new CharStatsGump(m, char_stats, avatar_info));
+			if (info.ButtonID != 999)
+			{
+				m.SendGump(new CharStatsGump(m, char_stats, avatar_info));
+			}
 		}
 
 	}
 }
-
-/*
-Mulheres
-Jovens
-40519
-40598
-
-Maduras
-40599
-40648
-
-Velhas
-40650
-40679
-///////////////////////////////////
-Homens
-Jovens
-40359
-40438
-
-maduros
-40439
-40488
-
-velhos
-40489
-40518*/

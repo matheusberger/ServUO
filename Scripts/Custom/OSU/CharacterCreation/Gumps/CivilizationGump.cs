@@ -11,6 +11,7 @@ using Server.Gumps;
 using Server.Misc;
 
 using OSU;
+using OSU.Structs;
 using OSU.Civilizations;
 
 namespace Server.Gumps
@@ -80,8 +81,8 @@ namespace Server.Gumps
 			switch ( info.ButtonID )
 			{
 				case 999: //setinha de ir pro prox
-					CharacterCreationSystem.temp_char.civilization = all_civilizations[civ_choice];
-					m.SendGump(new CharStatsGump(m, new CharStats(50), new AvatarDesc(m.Female, 0)));
+					CharacterCreationSystem.SetCharCivilization(all_civilizations[civ_choice]);
+					m.SendGump(new CharStatsGump(m, new CharStats(50), new AvatarDesc(m.Female, 0, "")));
 					m.SendMessage("BOA ESCOLHA!");
 					break;
 				default:

@@ -80,16 +80,21 @@ namespace Server.Engines.XmlSpawner2
 
         public static void CleanUp(PlayerMobile m, BackgroundList ListName)
         {
-                List<XmlBackground> removeAtt = new List<XmlBackground>();
-                foreach (XmlBackground att in XmlAttach.FindAttachments(m, typeof(XmlBackground)))
-                {
-                    if (att.Background == ListName)
-                        removeAtt.Add(att);
-                }
-                for (int i = removeAtt.Count - 1; i > -1; i--)
-                {
-                    removeAtt[i].Delete();
-                }
+            List<XmlBackground> removeAtt = new List<XmlBackground>();
+			var attachments = XmlAttach.FindAttachments(m, typeof(XmlBackground));
+				
+			if (attachments != null)
+			{
+				foreach (XmlBackground att in attachments)
+				{
+					if (att.Background == ListName)
+						removeAtt.Add(att);
+				}
+				for (int i = removeAtt.Count - 1; i > -1; i--)
+				{
+					removeAtt[i].Delete();
+				}
+			}
         }
 
         public static void CleanUp(PlayerMobile m)

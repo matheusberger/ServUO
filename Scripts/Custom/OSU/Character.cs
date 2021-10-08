@@ -16,6 +16,46 @@ namespace OSU
 			Old
 		}
 
+		public void InitOSUChar(PlayerMobile m)
+		{
+			this.base_char = m;
+			m.osu_char_info = this;
+
+			current_combat_points = 0;
+			current_profession_points = 0;
+			current_magic_points = 0;
+			current_hability_points = 0;
+
+			total_combat_points = 0;
+			total_profession_points = 0;
+			total_magic_points = 0;
+			total_hability_points = 0;
+
+			max_combat_points = 500;
+			max_profession_points = 0;
+			max_magic_points = 0;
+			max_hability_points = 0;
+
+			char_level = 1;
+			max_char_level = 25;
+			current_char_exp = 0;
+
+			str = 1;
+			dex = 1;
+			inteligence = 1;
+
+			char_weight = 50;
+			char_height = 50;
+
+			char_avatar = 0;
+			char_physical_des = "";
+
+			known_languages = new Languages[0];
+			skill_list = new OSUSkill[0];
+
+			Backgrounds = new Backgrounds();
+		}
+
 		public PlayerMobile base_char;
 
 		//leveling point system info

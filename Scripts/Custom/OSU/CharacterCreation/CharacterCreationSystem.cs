@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Server.Mobiles;
+using Server.Engines.XmlSpawner2;
 
 using OSU;
 using OSU.Structs;
@@ -10,11 +11,14 @@ namespace OSU
 {
 	class CharacterCreationSystem
 	{
-		public static OSUCharacter temp_char = new OSUCharacter();
+		public static OSUCharacter temp_char;
 		
 		public static void BeginCreation(PlayerMobile m)
 		{
-			temp_char.base_char = m;
+			temp_char = new OSUCharacter();
+			temp_char.InitOSUChar(m);
+			//XmlAttach.Initialize();
+			//XmlAttach.Configure();
 		}
 
 		public static void WipeAllTraits(PlayerMobile player)
@@ -24,7 +28,9 @@ namespace OSU
 
 		public static void ResetTempChar()
 		{
+			PlayerMobile m = temp_char.base_char;
 			temp_char = new OSUCharacter();
+			temp_char.InitOSUChar(m);
 		}
 
 		public static void SetCharCivilization(Civilization civ)

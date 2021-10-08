@@ -103,11 +103,23 @@ namespace Server.BackgroundInfo
             if( !MeetsOurRequirements(m, true) )
 				return;
 
-			m.osu_char_info.background_bonus_points -= Cost;
 
-			Level = 1;
-			m.SendMessage("You have acquired the " + Name + " background.");
-			OnAddedTo(m);
+			if (!HasThisBackground(m))
+			{
+				m.osu_char_info.background_bonus_points += Cost;
+				m.osu_char_info.Backgrounds.BackgroundDictionary[ListName].Level = 1;
+
+				m.SendMessage("You have acquired the " + Name + " background.");
+				OnAddedTo(m);
+			}
+			else
+			{
+				m.osu_char_info.background_bonus_points -= Cost;
+				m.osu_char_info.Backgrounds.BackgroundDictionary[ListName].Level = 0;
+
+				m.SendMessage("You have removed the " + Name + " background.");
+				OnRemovedFrom(m);
+			}
 		}
 
         public virtual bool CanAcquireThisBackground( PlayerMobile m )

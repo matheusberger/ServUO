@@ -61,6 +61,7 @@ namespace Server.Gumps
 			switch (info.ButtonID)
 			{
 				case 999:
+					m.SendGump(new OSUSkillsGump(m));
 					break;
 				default:
 					var all_backgrounds = Backgrounds.GetAllBackgrounds();

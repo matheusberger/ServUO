@@ -31,7 +31,7 @@ namespace OSU
 			total_magic_points = 0;
 			total_hability_points = 0;
 
-			max_combat_points = 500;
+			max_combat_points = 0;
 			max_profession_points = 0;
 			max_magic_points = 0;
 			max_hability_points = 0;
@@ -66,13 +66,13 @@ namespace OSU
 		public int current_hability_points;
 
 		//how many points the player has gathered in all his playthough 
-		public int total_combat_points = 100;
+		public int total_combat_points;
 		public int total_profession_points;
 		public int total_magic_points;
 		public int total_hability_points;
 
 		//maximum points a player can gather through each playtrhough:  total_x_points < max_x_points
-		public int max_combat_points = 500;
+		public int max_combat_points;
 		public int max_profession_points;
 		public int max_magic_points;
 		public int max_hability_points;

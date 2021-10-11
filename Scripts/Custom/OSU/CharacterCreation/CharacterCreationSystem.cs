@@ -33,6 +33,73 @@ namespace OSU
 			temp_char.InitOSUChar(m);
 		}
 
+		public static void SetSkillsCap(JobID[] jobIDs)
+		{
+			switch(jobIDs[0])
+			{
+				case JobID.Artificer:
+					temp_char.max_profession_points = 500;
+					break;
+				case JobID.Academic:
+					temp_char.max_hability_points = 500;
+					break;
+				case JobID.Mage:
+					temp_char.max_magic_points = 500;
+					break;
+				case JobID.Warrior:
+					temp_char.max_combat_points = 500;
+					break;
+			}
+
+			switch(jobIDs[1])
+			{
+				case JobID.Artificer:
+					temp_char.max_profession_points = 200;
+					break;
+				case JobID.Academic:
+					temp_char.max_hability_points = 200;
+					break;
+				case JobID.Mage:
+					temp_char.max_magic_points = 200;
+					break;
+				case JobID.Warrior:
+					temp_char.max_combat_points = 200;
+					break;
+			}
+
+			switch (jobIDs[2])
+			{
+				case JobID.Artificer:
+					temp_char.max_profession_points = 200;
+					break;
+				case JobID.Academic:
+					temp_char.max_hability_points = 200;
+					break;
+				case JobID.Mage:
+					temp_char.max_magic_points = 200;
+					break;
+				case JobID.Warrior:
+					temp_char.max_combat_points = 200;
+					break;
+			}
+
+			switch (jobIDs[3])
+			{
+				case JobID.Artificer:
+					temp_char.max_profession_points = 100;
+					break;
+				case JobID.Academic:
+					temp_char.max_hability_points = 100;
+					break;
+				case JobID.Mage:
+					temp_char.max_magic_points = 100;
+					break;
+				case JobID.Warrior:
+					temp_char.max_combat_points = 100;
+					break;
+			}
+		}
+
 		public static void SetCharCivilization(Civilization civ)
 		{
 			temp_char.civilization = civ;

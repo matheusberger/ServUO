@@ -118,6 +118,14 @@ namespace OSU
 
 		public int background_bonus_points;
 
+		#region Stuff we need to make Feats work
+
+		private bool m_IsVampire;
+		[CommandProperty(AccessLevel.Administrator)]
+		public bool IsVampire { get { return m_IsVampire; } set { m_IsVampire = value; } }
+
+		#endregion
+
 		#region  IOSUMobile
 		private Feats m_Feats;
 		private int m_FeatSlots;

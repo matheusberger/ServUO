@@ -37,7 +37,7 @@ namespace Server.FeatInfo
 
         public override bool MeetsOurRequirements( PlayerMobile m )
 		{
-			if( !m.IsVampire )
+			if( !m.osu_char_info.IsVampire )
 				return false;
 			
 			return base.MeetsOurRequirements( m );
@@ -45,7 +45,7 @@ namespace Server.FeatInfo
 
         public override bool ShouldDisplayTo( PlayerMobile m )
         {
-            if( !m.IsVampire )
+            if( !m.osu_char_info.IsVampire )
                 return false;
 
             return base.ShouldDisplayTo( m );

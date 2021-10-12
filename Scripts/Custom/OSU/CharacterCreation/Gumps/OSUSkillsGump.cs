@@ -63,7 +63,6 @@ namespace Server.Gumps
 			this.Dragable = true;
 			this.Resizable = false;
 
-			int index = 0;
 			job_choices = setup ?? new JobID[4];
 			//foreach (var choice in job_choices)
 			//{
